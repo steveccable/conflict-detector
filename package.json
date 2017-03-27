@@ -1,0 +1,25 @@
+{
+  "name": "conflict-detector",
+  "version": "1.0.0",
+  "description": "App to detect github conflicts",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kevin-hogan/conflict-detector.git"
+  },
+  "keywords": [
+    "github"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/kevin-hogan/conflict-detector/issues"
+  },
+  "homepage": "https://github.com/kevin-hogan/conflict-detector#readme",
+  "dependencies": {
+    "firebase-tools": "^3.5.0"
+  }
+}
