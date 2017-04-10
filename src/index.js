@@ -9,6 +9,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import * as firebase from 'firebase';
 
 import configureStore from './stores/configureStore';
@@ -27,10 +28,16 @@ store.dispatch(actions.setFirebaseApp(firebaseApp));
 const initPromise = new Promise((resolve, reject) => {
     // do some stuff
     console.log('initializing...');
-    store.dispatch(actions.signInWithGithub());
-    store.dispatch({
-      type: actionTypes.AUTH_SAVE_GITHUB_TOKEN,
-      oauthToken: 'testToken'
+    // store.dispatch(actions.signInWithGithub());
+    // store.dispatch({
+    //   type: actionTypes.AUTH_SAVE_GITHUB_TOKEN,
+    //   oauthToken: 'testToken'
+    // })
+    firebaseApp.auth().onAuthStateChanged((user) => {
+      store.dispatch({
+        type: actionTypes.AUTH_CHANGED,
+        loggedInUser: user
+      })
     })
     resolve();
 });
@@ -38,7 +45,9 @@ const initPromise = new Promise((resolve, reject) => {
 initPromise.then(() => {
   console.log('rendering...');
   ReactDOM.render(
-    <App />,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.getElementById('app')
   );
 }).catch((error) => {
