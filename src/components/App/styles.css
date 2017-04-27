@@ -1,0 +1,10 @@
+/* Placeholder values to test CSS is getting applied */
+.app {
+  height: 100vh;
+}
+
+.text {
+  font-size: 30px;
+  color: blue;
+  font-family: sans-serif;
+}

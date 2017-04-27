@@ -1,0 +1,6 @@
+export const AUTH_CHANGED = 'AUTH_CHANGED';
+export const AUTH_SAVE_GITHUB_TOKEN = 'AUTH_SAVE_GITHUB_TOKEN';
+
+export const FIREBASE_CONFIG = 'FIREBASE_CONFIG';
+
+export const NOOP = 'NOOP';
