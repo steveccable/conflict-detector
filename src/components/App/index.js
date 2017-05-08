@@ -19,6 +19,7 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch) {
   return {
     signInWithGithub: bindActionCreators(actions.signInWithGithub, dispatch),
+    signOutOfGithub: bindActionCreators(actions.signOutOfGithub, dispatch),
     fetchPrs: bindActionCreators(actions.fetchPrs, dispatch)
   };
 }
@@ -69,6 +70,11 @@ class App extends Component {
           {myStr}
           {pullRequests || 'No PRs found'}
         </p>
+        <button
+          className={styles.button}
+          onClick={this.props.signOutOfGithub}>
+          Click to Sign Out
+        </button>
       </div>
     );
   }

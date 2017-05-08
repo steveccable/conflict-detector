@@ -33,3 +33,15 @@ export function signInWithGithub() {
     // }
   }
 }
+
+export function signOutOfGithub() {
+  return (dispatch, getState) => {
+    const firebaseAuth = getFirebaseAuth(getState());
+    firebaseAuth.signOut().then(() => {
+      dispatch({
+        type: actionTypes.AUTH_CHANGED,
+        loggedInUser: null
+      });
+    });
+  }
+}

@@ -33,6 +33,17 @@ const initPromise = new Promise((resolve, reject) => {
     //   type: actionTypes.AUTH_SAVE_GITHUB_TOKEN,
     //   oauthToken: 'testToken' // })
     firebaseApp.auth().onAuthStateChanged((user) => {
+      if (!sessionStorage.getItem('GITUB_TOKEN')) {
+        // we only retrieve the github oauth token during login and only store it
+        // in session, so if the user still has a firebaseSession but no github
+        // oauth token, then we need to ask the user to log in again
+        user = null;
+      }
+      if (!user) {
+        resolve(null);
+        return;
+      }
+      console.log('updating auth state');
       store.dispatch({
         type: actionTypes.AUTH_CHANGED,
         loggedInUser: user
