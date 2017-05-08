@@ -58,6 +58,4 @@ typings/
 .env
 
 # built files
-dist/styles.css
-dist/bundle.js
-dist/index.html
+dist/

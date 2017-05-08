@@ -31,8 +31,7 @@ const initPromise = new Promise((resolve, reject) => {
     // store.dispatch(actions.signInWithGithub());
     // store.dispatch({
     //   type: actionTypes.AUTH_SAVE_GITHUB_TOKEN,
-    //   oauthToken: 'testToken'
-    // })
+    //   oauthToken: 'testToken' // })
     firebaseApp.auth().onAuthStateChanged((user) => {
       store.dispatch({
         type: actionTypes.AUTH_CHANGED,

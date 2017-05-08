@@ -7,15 +7,19 @@ import styles from './styles.css';
 
 function mapStateToProps(state, props) {
   console.log('steve', state);
-  const { loggedInUser } = state.auth;
+  const { loggedInUser, oauthToken } = state.auth;
+  const { requests } = state.github;
   return {
-    loggedInUser
+    loggedInUser,
+    oauthToken,
+    requests
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     signInWithGithub: bindActionCreators(actions.signInWithGithub, dispatch),
+    fetchPrs: bindActionCreators(actions.fetchPrs, dispatch)
   };
 }
 
@@ -45,6 +49,9 @@ class App extends Component {
   }
 
   renderBody() {
+    if (!this.props.requests) {
+      this.props.fetchPrs(this.props.oauthToken, this.props.loggedInUser);
+    }
     if (!this.props.loggedInUser) {
       return (
           <div id="appContainer" className={styles.app}>
@@ -57,10 +64,14 @@ class App extends Component {
       );
     }
     console.log('logged in');
-    const myStr = 'Signed in as ' + this.props.loggedInUser.displayName;
+    const myStr = `Signed in as ${this.props.loggedInUser.displayName}\n`;
+    const pullRequests = this.props.requests && this.props.requests.map(request => request.number + '\n');
     return (
       <div id="appContainer" className={styles.app}>
-        <p className={styles.text}>{myStr}</p>
+        <p className={styles.text}>
+          {myStr}
+          {pullRequests || 'No PRs found'}
+        </p>
       </div>
     );
   }
