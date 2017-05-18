@@ -49,9 +49,6 @@ class App extends Component {
   }
 
   renderBody() {
-    if (!this.props.requests) {
-      this.props.fetchPrs(this.props.oauthToken, this.props.loggedInUser);
-    }
     if (!this.props.loggedInUser) {
       return (
           <div id="appContainer" className={styles.app}>
@@ -63,7 +60,7 @@ class App extends Component {
           </div>
       );
     }
-    console.log('logged in');
+    console.log('logged in with requests', this.props.requests);
     const myStr = `Signed in as ${this.props.loggedInUser.displayName}\n`;
     const pullRequests = this.props.requests && this.props.requests.map(request => request.number + '\n');
     return (
@@ -74,6 +71,13 @@ class App extends Component {
         </p>
       </div>
     );
+  }
+
+  componentDidUpdate() {
+    const { loggedInUser, oauthToken, requests } = this.props;
+    if (oauthToken && loggedInUser && !requests) {
+      this.props.fetchPrs(oauthToken, loggedInUser);
+    }
   }
 
   render() {
